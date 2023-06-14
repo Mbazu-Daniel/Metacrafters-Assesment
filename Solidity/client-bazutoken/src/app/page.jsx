@@ -1,0 +1,251 @@
+"use client"
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/constants";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import {ethers, utils, Contract, providers} from "ethers"
+
+export default function Home() {
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [inputValue, setInputValue] = useState({ walletAddress: "", transferAmount: "", burnAmount: "", mintAmount: "" });
+  const [tokenName, setTokenName] = useState("");
+  const [tokenSymbol, setTokenSymbol] = useState("");
+  const [tokenTotalSupply, setTokenTotalSupply] = useState(0);
+  // const [tokenUserSupply, setTokenUserSupply] = useState(0);
+  const [isTokenOwner, setIsTokenOwner] = useState(false);
+  const [tokenOwnerAddress, setTokenOwnerAddress] = useState(null);
+  const [yourWalletAddress, setYourWalletAddress] = useState(null);
+  const [error, setError] = useState(null);
+
+  const checkIfWalletIsConnected = async () => {
+    try {
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        const account = accounts[0];
+        setIsWalletConnected(true);
+        setYourWalletAddress(account);
+        console.log("Account Connected: ", account);
+      } else {
+        setError("Install a MetaMask wallet to get our token.");
+        console.log("No Metamask detected");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getTokenInfo = async () => {
+    try {
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const tokenContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+        const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        let tokenName = await tokenContract.name();
+        let tokenSymbol = await tokenContract.symbol();
+        let tokenOwner = await tokenContract.owner();
+    // let balance = await tokenContract.getCustomerBalance()
+   
+        let tokenSupply = await tokenContract.totalSupply();
+        console.log("signer", signer)
+
+        tokenSupply = utils.formatEther(tokenSupply)
+        // balance = utils.formatEther(balance)
+
+        setTokenName(`${tokenName} 🦊`);
+        setTokenSymbol(tokenSymbol);
+        setTokenTotalSupply(tokenSupply);
+        // setTokenBalance(balance);
+        setTokenOwnerAddress(tokenOwner);
+
+        if (account.toLowerCase() === tokenOwner.toLowerCase()) {
+          setIsTokenOwner(true)
+        }
+
+        console.log("Token Name: ", tokenName);
+        console.log("Token Symbol: ", tokenSymbol);
+        console.log("Token Supply: ", tokenSupply);
+        console.log("Token Owner: ", tokenOwner);
+        // console.log("Token Balance: ", tokenBalance);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const transferToken = async (event) => {
+    event.preventDefault();
+    try {
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const tokenContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+        const txn = await tokenContract.transfer(inputValue.walletAddress, utils.parseEther(inputValue.transferAmount));
+        console.log("Transfering tokens...");
+        await txn.wait();
+        console.log("Tokens Transfered", txn.hash);
+
+      } else {
+        console.log("Ethereum object not found, install Metamask.");
+        setError("Install a MetaMask wallet to get our token.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const burnTokens = async (event) => {
+    event.preventDefault();
+    try {
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const tokenContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+        const txn = await tokenContract.burn(utils.parseEther(inputValue.burnAmount));
+        console.log("Burning tokens...");
+        await txn.wait();
+        console.log("Tokens burned...", txn.hash);
+
+        let tokenSupply = await tokenContract.totalSupply();
+        tokenSupply = utils.formatEther(tokenSupply)
+        setTokenTotalSupply(tokenSupply);
+
+      } else {
+        console.log("Ethereum object not found, install Metamask.");
+        setError("Install a MetaMask wallet to get our token.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const mintTokens = async (event) => {
+    event.preventDefault();
+    try {
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const tokenContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+        let tokenOwner = await tokenContract.owner();
+        const amount = utils.parseEther(inputValue.mintAmount)
+        const txn = await tokenContract.mint(amount);
+        console.log("Amount", amount)
+        console.log("Minting tokens...");
+        await txn.wait();
+        console.log("Tokens minted...", txn.hash);
+
+        let tokenSupply = await tokenContract.totalSupply();
+        tokenSupply = utils.formatEther(tokenSupply)
+        setTokenTotalSupply(tokenSupply);
+
+      } else {
+        console.log("Ethereum object not found, install Metamask.");
+        setError("Install a MetaMask wallet to get our token.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleInputChange = (event) => {
+    setInputValue(prevFormData => ({ ...prevFormData, [event.target.name]: event.target.value }));
+  }
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+    getTokenInfo();
+  }, [])
+
+  return (
+    <main className="main-container">
+      <h2 className="headline">
+        <span className="headline-gradient">BazuToken Coin</span>
+        <img className="inline p-3 ml-2" src="https://i.imgur.com/5JfHKHU.png" alt="BazuToken coin" width="60" height="30" />
+      </h2>
+      <section className="customer-section px-10 pt-5 pb-10">
+        {error && <p className="text-2xl text-red-700">{error}</p>}
+        <div className="mt-5">
+          <span className="mr-5"><strong>Coin:</strong> {tokenName} </span>
+          <span className="mr-5"><strong>Ticker:</strong>  {tokenSymbol} </span>
+          <span className="mr-5"><strong>Total Supply:</strong>  {tokenTotalSupply}</span>
+        </div>
+        <div className="mt-7 mb-9">
+          <form className="form-style">
+            <input
+              type="text"
+              className="input-double"
+              onChange={handleInputChange}
+              name="walletAddress"
+              placeholder="Wallet Address"
+              value={inputValue.walletAddress}
+            />
+            <input
+              type="text"
+              className="input-double"
+              onChange={handleInputChange}
+              name="transferAmount"
+              placeholder={`0.0000 ${tokenSymbol}`}
+              value={inputValue.transferAmount}
+            />
+            <button
+              className="btn-purple"
+              onClick={transferToken}>Transfer Tokens</button>
+          </form>
+        </div>
+        {isTokenOwner && (
+          <section>
+            <div className="mt-10 mb-10">
+              <form className="form-style">
+                <input
+                  type="text"
+                  className="input-style"
+                  onChange={handleInputChange}
+                  name="burnAmount"
+                  placeholder={`0.0000 ${tokenSymbol}`}
+                  value={inputValue.burnAmount}
+                />
+                <button
+                  className="btn-purple"
+                  onClick={burnTokens}>
+                  Burn Tokens
+                </button>
+              </form>
+            </div>
+            <div className="mt-10 mb-10">
+              <form className="form-style">
+                <input
+                  type="text"
+                  className="input-style"
+                  onChange={handleInputChange}
+                  name="mintAmount"
+                  placeholder={`0.0000 ${tokenSymbol}`}
+                  value={inputValue.mintAmount}
+                />
+                <button
+                  className="btn-purple"
+                  onClick={mintTokens}>
+                  Mint Tokens
+                </button>
+              </form>
+            </div>
+          </section>
+        )}
+        <div className="mt-5">
+          <p><span className="font-bold">Contract Address: </span>{CONTRACT_ADDRESS}</p>
+        </div>
+        <div className="mt-5">
+          <p><span className="font-bold">Token Owner Address: </span>{tokenOwnerAddress}</p>
+        </div>
+        <div className="mt-5">
+          {isWalletConnected && <p><span className="font-bold">Your Wallet Address: </span>{yourWalletAddress}</p>}
+          <button className="btn-connect" onClick={checkIfWalletIsConnected}>
+            {isWalletConnected ? "Wallet Connected 🔒" : "Connect Wallet 🔑"}
+          </button>
+        </div>
+
+      </section>
+    </main>
+  );
+}

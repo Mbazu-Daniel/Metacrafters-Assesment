@@ -1,11 +1,13 @@
 const hre = require("hardhat");
 
 async function main() {
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying contracts with the account:", deployer.address);
   const bazuToken = await hre.ethers.deployContract("BazuToken");
 
   await bazuToken.waitForDeployment();
 
-  console.log(`BazuToken deployed to ${bazuToken.address}`);
+  console.log(`BazuToken deployed to`, await bazuToken.getAddress());
 }
 
 // We recommend this pattern to be able to use async/await everywhere
