@@ -1,6 +1,6 @@
 # Audit Report on the Security of the StorageVictim Contract using Slither:
 
-1. Uninitialized Pointer:
+* Uninitialized Pointer:
 Within the store function of the contract, there is an uninitialized pointer Storage str that points to the storage address 0 (owner). This can result in unexpected behavior and potential security risks. Malicious actors could exploit this uninitialized pointer to manipulate data or gain unauthorized access.
 
 Recommended Solution:
@@ -11,7 +11,7 @@ function store(uint256 _amount) public {
     storages[msg.sender] = Storage(msg.sender, _amount);
 }
 `
-2. Deprecated Constructor:
+* Deprecated Constructor:
 The contract currently employs a constructor with the same name as the contract, namely `function StorageVictim()`. However, this naming convention has been deprecated in Solidity 0.8.18. Utilizing the new constructor keyword ensures improved code clarity and compatibility with the latest version of Solidity.
 
 Recommended Solution:
@@ -21,7 +21,7 @@ Rename the constructor from function `StorageVictim()` to constructor:
     owner = msg.sender;
 }`
 
-3. State Variables Visibility:
+* State Variables Visibility:
 The owner variable is defined as an address but lacks a visibility specifier. In Solidity 0.8.18, it is essential for state variables to explicitly declare their visibility to prevent unintended access or modification.
 Recommended Solution:
 If the `owner` variable should only be accessed within the contract, declare it as `immutable`:
