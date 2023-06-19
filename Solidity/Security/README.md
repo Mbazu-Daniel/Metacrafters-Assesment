@@ -1,4 +1,4 @@
-# Audit Report on the Security of the StorageVictim Contract:
+# Audit Report on the Security of the StorageVictim Contract using Slither:
 
 1. Uninitialized Pointer:
 Within the store function of the contract, there is an uninitialized pointer Storage str that points to the storage address 0 (owner). This can result in unexpected behavior and potential security risks. Malicious actors could exploit this uninitialized pointer to manipulate data or gain unauthorized access.
