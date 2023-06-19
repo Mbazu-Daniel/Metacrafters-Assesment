@@ -16,7 +16,7 @@ contract StorageVictim {
     }
 
     function store(uint256 _amount) public {
-        Storage storage str = storages[msg.sender]
+        Storage storage str = storages[msg.sender];
         str.user = msg.sender;
         str.amount = _amount;
     }

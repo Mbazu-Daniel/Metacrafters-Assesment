@@ -27,6 +27,8 @@ Recommended Solution:
 If the `owner` variable should only be accessed within the contract, declare it as `immutable`:
 
 `address immutable owner;`
+
 The TestNet being used is Polygan Mumbai.
+
 
 By implementing these suggested fixes, the contract's security will be enhanced, and it will become compatible with Solidity 0.8.18. These changes address the identified issues and help reduce potential vulnerabilities.
