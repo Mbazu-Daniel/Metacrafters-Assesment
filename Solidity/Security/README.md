@@ -1,59 +1,32 @@
+# Audit Report on the Security of the StorageVictim Contract:
 
-# Findings:
+1. Uninitialized Pointer:
+Within the store function of the contract, there is an uninitialized pointer Storage str that points to the storage address 0 (owner). This can result in unexpected behavior and potential security risks. Malicious actors could exploit this uninitialized pointer to manipulate data or gain unauthorized access.
 
-1. The constructor function should be explicitly defined using the constructor keyword instead of the contract name, as it is deprecated in Solidity 0.8.x.
-Suggestions:
+Recommended Solution:
+To resolve this issue, it is advised to initialize the `Storage` struct directly in the `store` function and assign the values to `storages[msg.sender]`. Here is the updated code:
 
-Update the constructor function to use the constructor keyword:
-
-`
-constructor() {
-    owner = msg.sender;
-}
-`
-
-2. Add the `memory` keyword when declaring the str variable in the store function to indicate that it is a temporary variable residing in memory.
-
-`
+`solidity
 function store(uint256 _amount) public {
-    Storage memory str = storages[msg.sender];
-    str.user = msg.sender;
-    str.amount = _amount;
+    storages[msg.sender] = Storage(msg.sender, _amount);
 }
 `
+2. Deprecated Constructor:
+The contract currently employs a constructor with the same name as the contract, namely `function StorageVictim()`. However, this naming convention has been deprecated in Solidity 0.8.18. Utilizing the new constructor keyword ensures improved code clarity and compatibility with the latest version of Solidity.
 
-# Fixes:
+Recommended Solution:
+Rename the constructor from function `StorageVictim()` to constructor:
 
-1. Updated the constructor to use the constructor keyword.
-2. Added the memory keyword when declaring the str variable in the store function.
+`constructor() {
+    owner = msg.sender;
+}`
 
+3. State Variables Visibility:
+The owner variable is defined as an address but lacks a visibility specifier. In Solidity 0.8.18, it is essential for state variables to explicitly declare their visibility to prevent unintended access or modification.
+Recommended Solution:
+If the `owner` variable should only be accessed within the contract, declare it as `immutable`:
 
-# Audit Report
+`address immutable owner;`
+The TestNet being used is Polygan Mumbai.
 
-1. The contract is vulnerable to a reentrant attack. This is because the store() function does not use the msg.sender modifier. This means that an attacker could call the store() function recursively, causing the contract to run out of gas.
-
-2.  The contract does not have a way to recover funds that have been sent to it. This is because the store() function does not have a revert() statement. This means that if an attacker sends funds to the contract, there is no way to get them back.
-
-
-To fix the reentrant attack vulnerability, I would add the msg.sender modifier to the store() function. This would prevent an attacker from calling the store() function recursively.
-
-To fix the lack of a way to recover funds, I would add a revert() statement to the store() function. This would allow users to get their funds back if they send them to the contract by mistake.
-
-
-
-
-
-
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+By implementing these suggested fixes, the contract's security will be enhanced, and it will become compatible with Solidity 0.8.18. These changes address the identified issues and help reduce potential vulnerabilities.
