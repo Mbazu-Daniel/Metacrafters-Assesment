@@ -1,0 +1,36 @@
+{
+	"contracts": {
+	"CryptoPals": "./contracts/CryptoPals.cdc",
+	"NonFungibleToken": {
+		"source": "./contracts/NonFungibleToken.cdc",
+		"aliases": {
+		  "testnet": "0x631e88ae7f1d7c20"
+		}
+	}
+
+	},
+	"networks": {
+		"emulator": "127.0.0.1:3569",
+		"mainnet": "access.mainnet.nodes.onflow.org:9000",
+		"sandboxnet": "access.sandboxnet.nodes.onflow.org:9000",
+		"testnet": "access.devnet.nodes.onflow.org:9000"
+	},
+	"accounts": {
+		"emulator-account": {
+			"address": "f8d6e0586b0a20c7",
+			"key": "28a18835da9213945bcd287aa6ec5928ec41f97fa73d77ffe8770c7dace1fc19"
+		}
+	},
+
+	"testnet-account": {
+		"address": "0x0008f7fae842ed82",
+		"key": {
+		  "type": "hex",
+		  "index": 0,
+		  "signatureAlgorithm": "ECDSA_P256",
+		  "hashAlgorithm": "SHA3_256",
+		  "privateKey": "b80c43c4af6b560618b9c4b1e4cc612373220e3875fb340ef401ece4390bf42f"
+		}
+	  }
+
+}
