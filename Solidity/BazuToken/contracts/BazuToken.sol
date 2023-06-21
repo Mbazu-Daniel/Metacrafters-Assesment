@@ -48,3 +48,4 @@ contract BazuToken {
         return true;
     }
 }
+
