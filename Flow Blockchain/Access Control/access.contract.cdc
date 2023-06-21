@@ -95,7 +95,7 @@ pub contract SomeContract {
 //   write scope : 2
 
 // function publicFunc
-//   can be called AREA : 1,2,3,4
+//   can be called AREA : 1,2,3,4Acc
 
 // function contractFunc
 //   can be called AREA : 1,2,3
