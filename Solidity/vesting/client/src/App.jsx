@@ -25,7 +25,7 @@ function App() {
   
   return (
     <>
-      <div className='min-h-screen'>
+      <div className='min-h-screen bg-purple-200'>
         <Navbar/>
         <Routes>
           <Route path="/" exact element={<Hero/>} />

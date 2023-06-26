@@ -15,12 +15,7 @@ const Hero = () => {
     style={{ background: `url('${background}') fixed no-repeat top/cover `}}
     >
       <div className="flex  items-center justify-between text-white py-5">
-        <div>
-          <h1 className="text-3xl font-bold"> Streamline Token Distribution:  </h1>
-          <h2 className="text-3xl font-bold mt-1">Register Organizations and Tokens quickly </h2>
-          <h3 className="text-xl font-semibold mt-6"> Tailor Vesting Periods for Success: Customize Rewards for Stakeholders</h3>
-          <p className="mt-2" >Granting Rewards After the Vesting Period</p>
-        </div>
+    
         <div  className="hidden lg:flex items-center space-x-3 font-semibold opacity-50 ">
           
           

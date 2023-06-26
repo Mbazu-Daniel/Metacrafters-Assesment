@@ -2,7 +2,7 @@
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/constants";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import {ethers, utils} from "ethers"
+import {ethers, utils, Contract, providers} from "ethers"
 
 export default function Home() {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
