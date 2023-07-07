@@ -1,17 +1,4 @@
-# Project Title
 
-Simple overview of use/purpose.
-
-## Description
-
-An in-depth paragraph about your project and overview of use.
-
-## Getting Started
-
-### Installing
-
-* How/where to download your pro
-##   
 ## DegenToken Smart Contract
 
 This is a Solidity smart contract for the DegenToken, an ERC20 token deployed on the Avalanche network. The contract extends the functionality of the OpenZeppelin `ERC20` and `Ownable` contracts, providing features such as minting, transferring, redeeming, burning, and checking token balances.
