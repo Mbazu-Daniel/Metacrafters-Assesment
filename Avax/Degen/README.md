@@ -82,29 +82,3 @@ The `balanceOf` function allows users to check the token balance of a specific a
 This smart contract is released under the MIT License, a permissive open-source license. Please see the SPDX-License-Identifier comment at the beginning of the contract for the full license text.gram
 * Any modifications needed to be made to files/folders
 
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
-
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
