@@ -76,9 +76,3 @@ The `balanceOf` function allows users to check the token balance of a specific a
 
 This smart contract is released under the MIT License, a permissive open-source license. Please see the SPDX-License-Identifier comment at the beginning of the contract for the full license text.
 The `balanceOf` function allows users to check the token balance of a specific address. It takes one parameter: the address for which the balance should be queried. It returns the balance of the specified address.
-
-### License
-
-This smart contract is released under the MIT License, a permissive open-source license. Please see the SPDX-License-Identifier comment at the beginning of the contract for the full license text.gram
-* Any modifications needed to be made to files/folders
-
