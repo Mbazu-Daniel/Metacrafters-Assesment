@@ -1,66 +1,52 @@
-# Polygon-Advanced-Module-1
+# BazRiotNFT Contract
 
-This is the first project in Polygon-Advance, in this project I was tasked deploy an NFT collection on the Ethereum blockchain, Map the collection to Polygon, and Transfer assets over via the Polygon Bridge.
+This contract is an ERC721A compliant contract that allows the minting and management of BazRiotNFTs. The contract extends the ERC721A contract and provides additional functionality specific to BazRiotNFT.
 
-## Getting Started
+## Contract Details
 
-### Executing program
+-   Contract name: BazRiotNFT
+-   Contract symbol: BRNFT
+-   SPDX-License-Identifier: MIT
 
-Download the codes by downloading the entire repository which will give you access to other contencts of the repository. Navigate to the ERC721A project directory,  run:
+## Prerequisites
 
-```shell
+Before using this contract, make sure you have the following:
 
- yarn install
+-   Solidity version 0.8.9 or higher.
+-   The ERC721A contract imported and available in the project.
 
-```
+## Contract Functions
 
-After installing the dependences, run the test file by using the following command:
+### Constructor
 
-```shell
-yarn hardhat test
-```
+The constructor function initializes the BazRiotNFT contract by setting the contract owner as the deployer of the contract.
 
-### Deploying the ERC721A Contract
+### Modifier
 
-Before deploying, make sure to rename ".env.example" to ".env" and provide your wallet private key where required i.e "PRIVATE_KEY= 'your wallet private key'". Run the following command to deploy the ERC721A contract to the Goerli Ethereum Testnet:
+-   `onlyOwner`: This modifier ensures that only the owner of the contract can perform certain actions.
 
-``` shell
-yarn hardhat run scripts/deploy.js --network goerli 
-```
+### External Functions
 
-The script will deploy the contract and provide the address of the contract in the console and also in the "contractAddress.js" file in the metadata folder.
+-   `mint(uint256 quantity)`: This function allows the owner of the contract to mint a specified quantity of BazRiotNFT tokens. The `quantity` parameter determines the number of tokens to be minted. The function checks if the total supply plus the requested quantity does not exceed the maximum quantity allowed (5 in this case) before minting the tokens.
+    
+-   `promptDescription()`: This function returns the URL for the prompt description associated with the BazRiotNFT. The prompt description is a string that provides information about the image of a single woman in a riot scene in Nigeria.
+    
 
-### Batch Mint NFTs
+### Internal Functions
 
-Run the following command to batch mint NFTs using the deployed ERC721 contract:
+-   `_baseURI()`: This internal function is overridden from the ERC721A contract and returns the base URL for the BazRiotNFTs. The base URL is used as a prefix for generating the token URI for each NFT.
 
-``` shell
-yarn hardhat run scripts/batchMint.js --network goerli
-```
+## Contract Variables
 
-The script will mint the specified number of NFTs and assign them to your address.
-
-### Approve and Deposit NFTs to Polygon Mumbai
-
-Run the following commands to approve and deposit the minted NFTs from Ethereum to the Polygon Mumbai network using the FxPortal Bridge:
-
-```shell
-yarn hardhat run scripts/approveDeposit.js --network goerli
-```
-
-### Viewing the Prompt
-
-To view the prompt for generating the images of the NFTs, run:
-
-```shell
-yarn hardhat run scripts/viewPrompt.js
-```
-
-## Author
-
-[Michael](https://github.com/m-azra3l)
+-   `owner`: This variable stores the address of the contract owner.
+    
+-   `maxQuantity`: This variable defines the maximum number of tokens that can be minted (5 in this case).
+    
+-   `baseUrl`: This variable stores the base URL for the BazRiotNFTs. It is used as a prefix to generate the complete token URI for each NFT.
+    
+-   `PROMPT_NAME`: This variable stores the prompt description for the BazRiotNFTs. It is a string representing the image of a single woman in a riot scene in Nigeria.
+    
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
-You can make a copy of the project to use for your own purposes.
+This contract is licensed under the MIT License. Please refer to the SPDX-License-Identifier comment at the beginning of the contract for more details.
