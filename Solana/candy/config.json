@@ -5,6 +5,7 @@
   "sellerFeeBasisPoints": 1,
   "isMutable": true,
   "isSequential": false,
+  "splTokenAddress": "CurDEmzmiiaXdYpRHw7CwPuKGzY3U3fvCT9HbJXAi3m6",
   "creators": [
     {
       "address": "EW7BSMZzr5i2R7wc8KZJn1RgJdY61zN79mjGDMAsei9U",
