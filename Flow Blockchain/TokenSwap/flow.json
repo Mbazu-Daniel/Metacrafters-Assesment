@@ -1,0 +1,57 @@
+{
+	"contracts": {
+		"BazuToken": "./cadence/contracts/BazuToken.cdc",
+		"FlowToken": "./cadence/contracts/FlowToken.cdc",
+		"FungibleToken": "./cadence/contracts/FungibleToken.cdc",
+		"SwapToken": "./cadence/contracts/SwapToken.cdc"
+	},
+	"networks": {
+		"emulator": "127.0.0.1:3569",
+		"mainnet": "access.mainnet.nodes.onflow.org:9000",
+		"testnet": "access.devnet.nodes.onflow.org:9000"
+	},
+	"accounts": {
+		"deploy-test": {
+			"address": "6f83eaf8351b78e5",
+			"key": {
+				"type": "file",
+				"location": "deploy-test.pkey"
+			}
+		},
+		"emulator-account": {
+			"address": "f8d6e0586b0a20c7",
+			"key": "6d12eebfef9866c9b6fa92b97c6e705c26a1785b1e7944da701fc545a51d4673"
+		},
+		"flow-test": {
+			"address": "601f6faeee6348c2",
+			"key": {
+				"type": "file",
+				"location": "flow-test.pkey"
+			}
+		},
+		"newTest": {
+			"address": "3d37b53276a1a040",
+			"key": {
+				"type": "file",
+				"location": "newTest.pkey"
+			}
+		},
+		"token-test": {
+			"address": "25e036f8a73a90f9",
+			"key": {
+				"type": "file",
+				"location": "token-test.pkey"
+			}
+		}
+	},
+	"deployments": {
+		"testnet": {
+			"newTest": [
+				"FungibleToken",
+				"BazuToken",
+				"FlowToken",
+				"SwapToken"
+			]
+		}
+	}
+}
