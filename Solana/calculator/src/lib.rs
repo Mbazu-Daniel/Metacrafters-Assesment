@@ -17,11 +17,11 @@ pub struct CalAcct {
     pub result: f64,
 }
 
-// Define the entry point for the Solana program, named `calculator_instruction`.
-entrypoint!(calculator_instruction);
+// Define the entry point for the Solana program, named `process_instruction`.
+entrypoint!(process_instruction);
 
 // The main function that implements the calculator logic.
-pub fn calculator_instruction(
+pub fn process_instruction(
     program_id: &Pubkey,
     accounts: &[AccountInfo],
     info_data: &[u8],
