@@ -2,7 +2,7 @@
 seeds = false
 skip-lint = false
 [programs.localnet]
-counter_program = "9vVwobbUQKqweePif76gvLBgg3uR12P8Ssae2x73kkFp"
+counter_program = "5AUyioSxkS2bYe8fZUdvGJphwCJv42SYCThMMTef39eH"
 
 [registry]
 url = "https://api.apr.dev"

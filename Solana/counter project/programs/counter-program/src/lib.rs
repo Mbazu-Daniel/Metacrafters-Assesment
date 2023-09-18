@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 
 // Declare the ID for the program. This is a unique identifier used to interact with the program on the Solana blockchain.
-declare_id!("9vVwobbUQKqweePif76gvLBgg3uR12P8Ssae2x73kkFp");
+declare_id!("5AUyioSxkS2bYe8fZUdvGJphwCJv42SYCThMMTef39eH");
 
 // Define the program module.
 #[program]
