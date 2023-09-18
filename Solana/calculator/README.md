@@ -20,9 +20,9 @@ The program uses external crates and Solana program dependencies. Notable depend
 
 ### Entry Point
 
--   The entry point for the Solana program is defined using the `entrypoint!` macro, and it is named `calculator_instruction`.
+-   The entry point for the Solana program is defined using the `entrypoint!` macro, and it is named `process_instruction`.
 
-### `calculator_instruction` Function
+### `process_instruction` Function
 
 -   This function is the core logic of the calculator program.
 -   It takes the program's ID, a list of accounts, and instruction data as input.
