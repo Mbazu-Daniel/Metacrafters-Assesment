@@ -6,7 +6,7 @@ use anchor_spl::{
 };
 
 // Declare the program ID, which is used to uniquely identify this Solana program.
-declare_id!("4wNomB8Ncca1ddQTSp9V9L4tV8bkS4nkHHWyMBZSTFNQ");
+declare_id!("FTBLRzteC6LV7UwhRv8KnaqMFVtcg2FWpiRo8QqkvMUP");
 
 // Define the main program module.
 #[program]
